@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Temperature Hot</title>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
+
+		<!-- Bootstrap CSS -->
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		/>
+		<style>
+			body {
+				background: url(images/bg-image.jpg) no-repeat;
+				background-size: cover;
+				height: 100vh;
+			}
+			#city {
+				border: 3px solid transparent;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container">
+			<form class="col-md-6 m-auto py-5" id="weather-form">
+				<div class="input-group mb-3">
+					<input
+						type="text"
+						class="form-control"
+						placeholder="Enter a location for Weather ..."
+						id="city"
+					/>
+					<div class="input-group-append">
+						<button
+							type="button"
+							class="btn btn-danger"
+							id="weather"
+						>
+							Search
+						</button>
+					</div>
+				</div>
+			</form>
+			<div class="weather-status text-white text-center">
+				<img
+					src="https://openweathermap.org/img/wn/02d@2x.png"
+					alt=""
+					data-weather="icon"
+				/>
+				<h1 data-weather="city">Dhaka</h1>
+				<h3><span data-weather="temp">38.06</span>&deg;C</h3>
+				<h1 class="lead" data-weather="condition">Clouds</h1>
+			</div>
+		</div>
+	</body>
+
+	<script src="./app.js"></script>
+</html>
