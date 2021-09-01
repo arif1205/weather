@@ -5,23 +5,27 @@ const weather = document.getElementById("weather");
 const weatherForm = document.getElementById("weather-form");
 const spinner = document.getElementById("spinner");
 const weatherStatus = document.getElementById("weather-status");
+const warningText = document.getElementById("warning-text");
 
 weather.addEventListener("click", showCondition);
 weatherForm.addEventListener("submit", showCondition);
+window.addEventListener("load", showCondition);
 
 function showCondition(e) {
 	e.preventDefault();
 	showSpinner(false);
 	const city = document.getElementById("city");
-	const url = `${BASE_URL}${capitalize(city.value)}&appid=${API_Key}`;
+	const url = `${BASE_URL}${city.value || "Dhaka"}&appid=${API_Key}`;
 	fetch(url)
 		.then((res) => {
 			if (res.ok) {
 				city.classList.remove("border-danger");
+				warningText.classList.add("d-none");
 				return res.json();
 			} else {
 				city.classList.add("border-danger");
-				alert("Please Enter a valid city name");
+				warningText.classList.remove("d-none");
+				showSpinner(false);
 				return Promise.reject("Not a valid city name");
 			}
 		})
@@ -29,11 +33,6 @@ function showCondition(e) {
 		.catch((e) => console.log("Error occured: " + e));
 
 	city.value = "";
-}
-
-function capitalize(word) {
-	const lower = word.toLowerCase();
-	return word.charAt(0).toUpperCase() + lower.slice(1);
 }
 
 function passData(weatherInfo) {
@@ -68,10 +67,10 @@ function updateData(data) {
 
 function showSpinner(dataLoaded) {
 	if (dataLoaded) {
-		spinner.classList.add("d-none");
-		weatherStatus.classList.remove("d-none");
+		spinner.classList.toggle("d-none");
+		weatherStatus.classList.toggle("d-none");
 	} else {
-		spinner.classList.remove("d-none");
-		weatherStatus.classList.add("d-none");
+		spinner.classList.toggle("d-none");
+		weatherStatus.classList.toggle("d-none");
 	}
 }
