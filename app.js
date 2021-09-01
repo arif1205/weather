@@ -3,12 +3,15 @@ const BASE_URL = `https://api.openweathermap.org/data/2.5/weather?q=`;
 
 const weather = document.getElementById("weather");
 const weatherForm = document.getElementById("weather-form");
+const spinner = document.getElementById("spinner");
+const weatherStatus = document.getElementById("weather-status");
 
 weather.addEventListener("click", showCondition);
 weatherForm.addEventListener("submit", showCondition);
 
 function showCondition(e) {
 	e.preventDefault();
+	showSpinner(false);
 	const city = document.getElementById("city");
 	const url = `${BASE_URL}${capitalize(city.value)}&appid=${API_Key}`;
 	fetch(url)
@@ -60,4 +63,15 @@ function updateData(data) {
 	weatherCity.innerText = data.city;
 	weatherTemp.innerText = data.temp;
 	weatherCondition.innerText = data.weatherCondition;
+	showSpinner(true);
+}
+
+function showSpinner(dataLoaded) {
+	if (dataLoaded) {
+		spinner.classList.add("d-none");
+		weatherStatus.classList.remove("d-none");
+	} else {
+		spinner.classList.remove("d-none");
+		weatherStatus.classList.add("d-none");
+	}
 }
